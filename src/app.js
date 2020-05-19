@@ -14,6 +14,7 @@ import {
 } from 'grommet'
 import QuoteDisplay from './components/QuoteDisplay'
 import VoteButtons from './components/VoteButtons'
+import VoteScore from './components/VoteScore'
 
 // REDUX
 import { Provider } from 'react-redux' 
@@ -87,7 +88,7 @@ class App extends Component {
 			type: QUOTES_LOADED,
 			payload: normalized
 		})
- 
+
 	}
 
 	render() {
@@ -98,6 +99,7 @@ class App extends Component {
 					<ProfilePic/>
 					<QuoteDisplay/>
 					<VoteButtons/>
+					<VoteScore/>
 				</Provider>
 			</Grommet>
 		)

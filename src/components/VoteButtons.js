@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Moment from 'moment'
 import { render } from 'react-dom'
 import {
 	grommet,
@@ -16,9 +17,11 @@ import { voteUp, voteDown, voteNeutral } from '../actions/quotes'
 
 function mapStateToProps(state, ownProps) {
 	const activeIndex = state.activeQuote.index
+	const ids = state.quotes.ids
 
 	return {
-		activeIndex
+		activeIndex,
+		ids
 	}
 }
 
@@ -34,26 +37,35 @@ function mapDispatchToProps(dispatch) {
 
 class VoteButtons extends Component {
 	handleVoteDown = () => {
-		const { activeIndex, actions } = this.props
+		const { activeIndex, actions, ids } = this.props
+		const timestamp = Moment().toISOString()
 
 		actions.voteDown({
-			index: activeIndex
+			index: activeIndex,
+			ids,
+			timestamp
 		})
 	}
 
 	handleVoteNeutral = () => {
-		const { activeIndex, actions } = this.props
+		const { activeIndex, actions, ids } = this.props
+		const timestamp = Moment().toISOString()
 
 		actions.voteNeutral({
-			index: activeIndex
+			index: activeIndex,
+			ids,
+			timestamp
 		})
 	}
 
 	handleVoteUp = () => {
-		const { activeIndex, actions } = this.props
+		const { activeIndex, actions, ids } = this.props
+		const timestamp = Moment().toISOString()
 
 		actions.voteUp({
-			index: activeIndex
+			index: activeIndex,
+			ids,
+			timestamp
 		})
 	}
 

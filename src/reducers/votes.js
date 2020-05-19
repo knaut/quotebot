@@ -33,7 +33,8 @@ export default function votes(
 				initialTallies[ ids[i] ] = {
 					ups: 0,
 					neutrals: 0,
-					downs: 0
+					downs: 0,
+					lastVoteTime: null
 				}
 			}
 
@@ -42,7 +43,7 @@ export default function votes(
 			return newState
 		}
 		case QUOTE_VOTE_UP: {
-			const { index } = action.payload
+			const { index, timestamp } = action.payload
 			const newState = {
 				...state
 			}
@@ -52,7 +53,8 @@ export default function votes(
 
 			const newVoteTally = {
 				...thisVoteTally,
-				ups
+				ups,
+				lastVoteTime: timestamp
 			}
 
 			newState[ index ] = newVoteTally
@@ -60,7 +62,7 @@ export default function votes(
 			return newState
 		}
 		case QUOTE_VOTE_NEUTRAL: {
-			const { index } = action.payload
+			const { index, timestamp } = action.payload
 			const newState = {
 				...state
 			}
@@ -70,7 +72,8 @@ export default function votes(
 
 			const newVoteTally = {
 				...thisVoteTally,
-				neutrals
+				neutrals,
+				lastVoteTime: timestamp
 			}
 
 			newState[ index ] = newVoteTally
@@ -78,7 +81,7 @@ export default function votes(
 			return newState
 		}
 		case QUOTE_VOTE_DOWN: {
-			const { index } = action.payload
+			const { index, timestamp } = action.payload
 			const newState = {
 				...state
 			}
@@ -88,7 +91,8 @@ export default function votes(
 
 			const newVoteTally = {
 				...thisVoteTally,
-				downs
+				downs,
+				lastVoteTime: timestamp
 			}
 
 			newState[ index ] = newVoteTally
