@@ -25,6 +25,7 @@
     "css-loader": "^3.5.3",
     "file-loader": "^6.0.0",
     "grommet": "^2.13.0",
+    "grommet-icons": "^4.4.0",
     "moment": "^2.25.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

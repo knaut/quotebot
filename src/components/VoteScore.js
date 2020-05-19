@@ -35,6 +35,8 @@ function VoteScoreRow(props) {
 			css={`
 				display: flex;
 			`}
+			pad='xsmall'
+			css={`border-bottom: 1px solid #ccc;`}
 		>
 			<div css={`flex: 5; text-align: left`}>{quoteId}</div>
 			<div css={`flex: 5; text-align: center`}>{ups}</div>

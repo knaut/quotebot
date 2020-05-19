@@ -26,22 +26,31 @@ function mapStateToProps(state, ownProps) {
 class QuoteDisplay extends Component {
 	render() {
 		const { quote, isLoaded } = this.props
-		
 
-		if (isLoaded) {
-			const quoteString = quote.stripped
-			return (
-				<Heading level={2}>
-					{quoteString}
-				</Heading>
-			)
-		} else {
-			return (
-				<Heading level={2}>
-					Please wait while we fetch quotes...
-				</Heading>
-			)
+		let quoteString = false
+		
+		if (quote) {
+			quoteString = quote.stripped	
 		}
+		
+		const copy = quoteString ? (
+			<Heading level={2}>
+				<span css={`font-style: italic;`}>{quoteString}</span>
+			</Heading>
+		) : (
+			<Heading level={2}>
+				Please wait while we fetch quotes...
+			</Heading>
+		)
+
+		return (
+			<Box 
+				background='accent-3'
+				pad='small'
+			>
+				{copy}
+			</Box>
+		)
 
 	}
 }

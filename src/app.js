@@ -12,15 +12,26 @@ import {
 	Heading,
 	Anchor
 } from 'grommet'
+
+import {
+	Robot
+} from 'grommet-icons'
+
 import QuoteDisplay from './components/QuoteDisplay'
 import VoteButtons from './components/VoteButtons'
 import VoteScore from './components/VoteScore'
+import MapView from './components/MapView'
+import QuoteAudio from './components/QuoteAudio'
 
 // REDUX
 import { Provider } from 'react-redux' 
 import generateStore from './utils/generateStore'
-import { QUOTES_LOADED } from './actions/quotes'
+
+ import { QUOTES_LOADED } from './actions/quotes'
+
 import formatLoadedQuotes from './utils/formatLoadedQuotes'
+
+
 
 
 const store = generateStore()
@@ -57,22 +68,22 @@ class ProfilePic extends Component {
 	}
 	render() {
 		const { ip } = this.state
-		
-		if (ip) {
-			const src = `https://robohash.org/${ip}.png?bgset=bg2`
-		
-			return (
-				<Image src={src} fit='cover'/>
-			)	
-		} else {
-			// skeleton UI could go here
-			return (
-				<span>Please wait while we fetch your photo...</span>
-			)
-		}
-		
+		const src = `https://robohash.org/${ip}.png?bgset=bg2`
+
+		const result = ip ? (
+			<Image src={src} fit='cover'/>
+		) : (
+			<span>Please wait while we fetch your photo...</span>
+		)
+
+		return (
+			<Box css={`min-height: 50vh`}>
+				{result}
+			</Box>
+		)
 	}
 }
+
 
 class App extends Component {
 	async componentDidMount() {
@@ -95,9 +106,27 @@ class App extends Component {
 		return (
 			<Grommet theme={grommet}>
 				<Provider store={store}>
-					<Navigation/>
+					{/* made redundant <Navigation/> */}
+					<Box 
+						background='accent-2'
+						css={`
+							justify-content: center;
+    					display: flex;
+    				`}
+					>
+
+						<Heading level={1} css={`
+							display: inline-flex;
+					    width: fit-content;
+					    margin: 25px auto;
+						`}>
+							<Robot color='brand' size='large'/>Welcome to Quotebot!
+						</Heading>
+					</Box>
 					<ProfilePic/>
+					<MapView/>
 					<QuoteDisplay/>
+					<QuoteAudio/>
 					<VoteButtons/>
 					<VoteScore/>
 				</Provider>
