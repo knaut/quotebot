@@ -1,0 +1,2 @@
+export const QUOTES_LOADED = 'QUOTES_LOADED'
+
