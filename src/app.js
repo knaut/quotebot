@@ -12,15 +12,17 @@ import {
 	Heading,
 	Anchor
 } from 'grommet'
+import QuoteDisplay from './components/QuoteDisplay'
+import VoteButtons from './components/VoteButtons'
 
 // REDUX
 import { Provider } from 'react-redux' 
 import generateStore from './utils/generateStore'
 import { QUOTES_LOADED } from './actions/quotes'
+import formatLoadedQuotes from './utils/formatLoadedQuotes'
 
 
 const store = generateStore()
-console.log({store})
 
 function Navigation() {
 	return (
@@ -33,8 +35,8 @@ function Navigation() {
 				justify-content: center;
 			`}
 		>
-			<Anchor hoverIndicator>Read this Quote</Anchor>
-			<Anchor hoverIndicator>Show Past Quotes</Anchor>
+			<Anchor hoverIndicator css={`flex: 2; text-align: center;`}>Read this Quote</Anchor>
+			<Anchor hoverIndicator css={`flex: 2; text-align: center;`}>Show Past Quotes</Anchor>
 		</Nav>
 	)
 }
@@ -71,20 +73,6 @@ class ProfilePic extends Component {
 	}
 }
 
-class QuoteDisplay extends Component {
-	
-
-	render() {
-		const quote = 'Id proident fugiat non labore ut ea pariatur esse consequat ut nulla ad.'
-		return (
-			<Heading level={2}>
-				{quote}
-			</Heading>
-		)
-	}
-}
-
-
 class App extends Component {
 	async componentDidMount() {
 		const randomNumber = Math.random() * 10
@@ -93,9 +81,11 @@ class App extends Component {
  		const response = await fetch(url)
  		const json = await response.json()
 
+ 		const normalized = formatLoadedQuotes(json)
+
 		store.dispatch({
 			type: QUOTES_LOADED,
-			payload: json
+			payload: normalized
 		})
  
 	}
@@ -103,8 +93,12 @@ class App extends Component {
 	render() {
 		return (
 			<Grommet theme={grommet}>
-				<Navigation/>
-				<ProfilePic/>
+				<Provider store={store}>
+					<Navigation/>
+					<ProfilePic/>
+					<QuoteDisplay/>
+					<VoteButtons/>
+				</Provider>
 			</Grommet>
 		)
 	}
